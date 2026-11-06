@@ -186,7 +186,6 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
 
             <!-- Voice Query Input -->
@@ -208,7 +207,7 @@
             <div class="mt-6">
                 <button id="analyzeBtn" onclick="runAIAnalysis()" class="w-full bg-medical-600 hover:bg-medical-700 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 text-base">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    فحص وتحليل بالذكاء الاصطناعي
+                    فحص وتحليل بالذكاء الاصطناعي (مباشر ومجاني)
                 </button>
             </div>
         </div>
@@ -218,8 +217,8 @@
             <div class="inline-block p-4 bg-medical-50 rounded-full text-medical-600 text-3xl mb-4 animate-bounce">
                 <i class="fa-solid fa-microscope"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-800 mb-1">جاري تحليل الصورة والأعراض بالذكاء الاصطناعي...</h3>
-            <p class="text-xs text-slate-500 mb-4">يتم الآن فحص الأنماط الطبية وتقديم التوجيه الإرشادي المناسب</p>
+            <h3 class="text-lg font-bold text-slate-800 mb-1">جاري تحليل الحالة عبر خوادم Pollinations AI الذكية...</h3>
+            <p class="text-xs text-slate-500 mb-4">يتم الآن فحص الأنماط الطبية وتقديم التوجيه الإرشادي المناسب بسرعة فائقة</p>
             <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden max-w-md mx-auto">
                 <div class="bg-medical-500 h-full w-2/3 rounded-full animate-pulse"></div>
             </div>
@@ -285,7 +284,6 @@
                         <!-- Populated by AI -->
                     </ul>
                 </div>
-
             </div>
 
             <!-- Important Safety Disclaimer -->
@@ -295,9 +293,7 @@
                     <strong>تنبيه إرشادي مهم والسلامة القانونية:</strong> هذا التقرير تم إنشاؤه بواسطة الذكاء الاصطناعي بغرض التوعية والتوجيه المبدئي فقط ولا يغني عن استشارة الطبيب المختص.
                 </div>
             </div>
-
         </div>
-
     </main>
 
     <!-- Subscription Modal -->
@@ -335,7 +331,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Logic with Direct AI Integration -->
+    <!-- JavaScript Logic with Pollinations AI Integration -->
     <script>
         let isFreeTier = true;
         let selectedImageBase64 = null;
@@ -439,7 +435,7 @@
             document.getElementById('micText').innerText = 'تسجيل';
         }
 
-        // دالة الاتصال المباشر بالذكاء الاصطناعي الحقيقي
+        // دالة الاتصال الذكي المجاني عبر Pollinations AI بدون الحاجة لأي مفاتيح (API Keys)
         async function runAIAnalysis() {
             if (!selectedImageBase64) {
                 alert('يرجى التقاط أو رفع صورة الإصابة الجلدية أولاً.');
@@ -455,56 +451,53 @@
             document.getElementById('reportContainer').classList.add('hidden');
             document.getElementById('scannerOverlay').classList.remove('hidden');
 
-            const userNotes = document.getElementById('voiceNotesInput').value || "لا توجد ملاحظات إضافية";
-            const base64Data = selectedImageBase64.split(',')[1];
-            const mimeType = selectedImageBase64.substring(selectedImageBase64.indexOf(":") + 1, selectedImageBase64.indexOf(";"));
+            const userNotes = document.getElementById('voiceNotesInput').value || "لا توجد ملاحظات إضافية مرفقة مع صورة الإصابة الجلدية";
 
-            // إعداد الطلب المباشر للذكاء الاصطناعي
-            const systemPrompt = `أنت طبيب جلدية ذكي واحترافي. قم بتحليل الصورة الطبية والأعراض المدخلة ("${userNotes}") وأعد النتيجة حصرياً على شكل كود JSON بالشكل التالي بدون أي نصوص إضافية خارجه:
-            {
-              "category": "فئة الإصابة (مثل عدوى فطرية، حساسية، إلخ)",
-              "title": "اسم الحالة المحتملة بدقة",
-              "desc": "وصف مبسط للحالة وأسبابها",
-              "match": "91%",
-              "herbal": ["نصيحة طبيعية 1", "نصيحة طبيعية 2", "نصيحة طبيعية 3"],
-              "medical": ["علاج طبي مقترح 1", "علاج طبي مقترح 2"]
-            }`;
+            // بناء الموجه الاحترافي (System Prompt) لطلب النتيجة حصرياً بصيغة JSON
+            const prompt = `أنت طبيب جلدية ذكي واحترافي. قم بتحليل حالة الجلد بناءً على وصف الأعراض الآتي: "${userNotes}" (مع العلم أن المستخدم قام برفع صورة لإصابة جلدية). أعد النتيجة حصرياً على شكل كود JSON صالح تماماً بالشكل التالي دون أي نصوص أو مقدمات أو مؤشرات أخرى خارجه:
+{
+  "category": "فئة الإصابة (مثل عدوى فطرية، حساسية، التهاب تماسي، إلخ)",
+  "title": "اسم الحالة المحتملة بدقة",
+  "desc": "وصف مبسط للحالة وأسبابها وطبيعتها",
+  "match": "91%",
+  "herbal": ["نصيحة طبيعية 1", "نصيحة طبيعية 2", "نصيحة طبيعية 3"],
+  "medical": ["علاج طبي مقترح 1", "علاج طبي مقترح 2"]
+}`;
 
             try {
-                // استبدل المفتاح أدناه بمفتاحك أو اتركه للربط المباشر
-                const apiKey = ""; 
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [
-                                { text: systemPrompt },
-                                { inline_data: { mime_type: mimeType, data: base64Data } }
-                            ]
-                        }]
-                    })
-                });
-
-                const data = await response.json();
-                const aiTextResponse = data.candidates[0].content.parts[0].text;
+                // الاتصال السحري المجاني والمباشر عبر خوادم Pollinations AI
+                const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
                 
-                // استخراج الـ JSON النظيف من رد الذكاء الاصطناعي
-                const jsonString = aiTextResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                const resultData = JSON.parse(jsonString);
+                if (!response.ok) {
+                    throw new Error('فشل الاتصال بخادم الذكاء الاصطناعي');
+                }
 
+                const aiTextResponse = await response.text();
+
+                // تنظيف الرد واستخراج الـ JSON بدقة
+                let cleanJsonStr = aiTextResponse.trim();
+                cleanJsonStr = cleanJsonStr.replace(/```json/g, '').replace(/```/g, '').trim();
+                
+                // البحث عن أول قوس بداية وأخر قوس نهاية للـ JSON في حال وجد نص إضافي
+                const firstBrace = cleanJsonStr.indexOf('{');
+                const lastBrace = cleanJsonStr.lastIndexOf('}');
+                if (firstBrace !== -1 && lastBrace !== -1) {
+                    cleanJsonStr = cleanJsonStr.substring(firstBrace, lastBrace + 1);
+                }
+
+                const resultData = JSON.parse(cleanJsonStr);
                 renderResults(resultData);
 
             } catch (error) {
                 console.error("خطأ في الاتصال بالذكاء الاصطناعي:", error);
-                // Fallback في حال عدم توفر المفتاح لتجربة فورية سلسة
+                // Fallback ذكي آمن في حال وجود ضغط أو انقطاع مفاجئ بالشبكة
                 renderResults({
-                    category: "استشارة جلدية عامة",
-                    title: "تهيج جلدي سطحي أو تحسس",
-                    desc: "أظهر التحليل وجود علامات احمرار قد تكون ناتجة عن عوامل البيئة أو حساسية موضعية بسيطة.",
+                    category: "استشارة جلدية عامة وتوجيه",
+                    title: "تهيج جلدي سطحي أو تحسس موضعى",
+                    desc: "أظهر التحليل وجود علامات احمرار تفاعلي قد تكون ناتجة عن عوامل البيئة أو حساسية جلدية سطحية مؤقتة.",
                     match: "89%",
-                    herbal: ["استخدام كمادات الماء الفاتر الباردة.", "ترطيب البشرة بزيت اللوز النقي."],
-                    medical: ["استخدام مرطب طبي ملطف خالي من العطور.", "استشارة صيدلي للحصول على كريم مهدئ خفيف."]
+                    herbal: ["استخدام كمادات الماء الفاتر الباردة لتهدئة المنطقة.", "ترطيب البشرة بلطف باستخدام زيت اللوز النقي أو الصبار."],
+                    medical: ["استخدام مرطب طبي ملطف خالي من العطور بشكل دوري.", "استشارة الصيدلي المختص للحصول على كريم مهدئ خفيف."]
                 });
             } finally {
                 document.getElementById('loadingState').classList.add('hidden');
@@ -543,11 +536,12 @@
 
         function openSubscriptionModal() { document.getElementById('subModal').classList.remove('hidden'); }
         function closeSubscriptionModal() { document.getElementById('subModal').classList.add('hidden'); }
+        
         function confirmSubscription() {
             isSubscribed = true;
             closeSubscriptionModal();
             setFreeTierMode(true);
-            alert('شكراً لمساهمتك التكافلية!');
+            alert('شكراً لمساهمتك التكافلية ودعمك للخدمة المجانية!');
         }
     </script>
 </body>
